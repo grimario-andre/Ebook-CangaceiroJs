@@ -1,8 +1,12 @@
 class Negociacao {
-    constructor (data,quantidade,valor) {
-        this._data = new Date(data.getTime());
-        this._quantidade = quantidade;
-        this._valor = valor;
+
+    // usar recurso propiedade de objeto lateral.
+    constructor (_data,_quantidade,_valor) {
+
+        console.log('usar métedo Object.assing()');
+        Object.assign(this,{_quantidade, _valor});
+        this._data = new Date(_data.getTime());
+        
         Object.freeze(this); // congelar objeto/atributo.
     }
 
@@ -39,3 +43,4 @@ class Negociacao {
         return this._valor;
     };
 }
+

@@ -62,12 +62,14 @@
     </script>
 
     <script>
-        var n1 = new Negociacao (new Date(),15,750.00);
+        
+        let hoje = new Date();
 
-        console.log(n1.getData());
-        console.log(n1.getQuantidade());
-        console.log(n1.getValor());
-        console.log(n1.getVolume());
+        let n1 = new Negociacao (hoje,5,750.00);
+
+        hoje.setDate(11);
+
+        console.log(n1._data);
     </script>
 </body>
 </html>
