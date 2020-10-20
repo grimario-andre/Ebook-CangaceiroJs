@@ -1,13 +1,10 @@
 class Negociacao {
 
-    // usar recurso propiedade de objeto lateral.
     constructor(_data, _quantidade, _valor) {
 
-        //usar métedo Object.assing()
-        Object.assign(this, { _quantidade, _valor });
+        Object.assign(this, { _quantidade, _valor })
         this._data = new Date(_data.getTime());
-
-        Object.freeze(this); // congelar objeto/atributo.
+        Object.freeze(this);
     }
 
     get volume() {
@@ -30,4 +27,3 @@ class Negociacao {
         return this._valor;
     }
 }
-

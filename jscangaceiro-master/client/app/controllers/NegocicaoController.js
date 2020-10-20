@@ -1,47 +1,47 @@
 //Creating the class. Negociation Controller.
 class NegociacaoController {
-    //creat a constructor.
-    constructor() {
-        //create vbarible to revice method document.queryselector to cross function bind()
-        let	$	=	document.querySelector.bind(document);
-        this._inputData	=	$('#data');
-        this._inputQuantidade	=		$('#quantidade');
-        this._inputValor	=	$('#valor');
-        this._negociacoes	=	new	Negociacoes();
-        this._negociacoesView = new NegociacoesView('#negociacoes'); // add object of the class NegociçõesView().
 
-        //refrash the view.
-        this._negociacoesView.update();
+    constructor() {
+
+        let $ = document.querySelector.bind(document);
+        this._inputData = $('#data');
+        this._inputQuantidade = $('#quantidade');
+        this._inputValor = $('#valor');
+        this._negociacoes = new Negociacoes();
+        this._negociacoesView = new NegociacoesView('#negociacoes');
+        // recebe inicialmente, o modelo que encapsula uma lista vazia
+        this._negociacoesView.update(this._negociacoes);
+        this._mensagem = new Mensagem();
+
+        // new add.
+        this._mensagemView = new MensagemView('#mensagemView');
+        this._mensagemView.update(this._mensagem);
     }
 
-    //create method to add(event) for to cancel when to click in the bottom submit.
+    adiciona(event) {
 
-    adiciona(event)	{
         event.preventDefault();
-        this._negociacoes.adiciona(this._criaNegociacao());	//	modificação!							
+        this._negociacoes.adiciona(this._criaNegociacao());
+        this._mensagem.texto = 'Negociação realizada com sucesso';
+        this._negociacoesView.update(this._negociacoes);
+        this._mensagemView.update(this._mensagem);
         this._limpaFormulario();
     }
 
-    paraArray(){
-        // return array null and to concact with itens of the class Neogiciacoes.
-        return [].concat(this._negociacoes);
+    _limpaFormulario() {
+
+        this._inputData.value = '';
+        this._inputQuantidade.value = 1;
+        this._inputValor.value = 0.0
+        this._inputData.focus();
     }
 
-    //create method to clear form.
-    _limpaFormulario()	{
-        this._inputData.value	=	'';
-        this._inputQuantidade.value	=	1;
-        this._inputValor.value	=	0.0;
-        this._inputData.focus();
-    }	
+    _criaNegociacao() {
 
-    //create method to recive form.
-    _criaNegociacao()	{
-        //	retorna	uma	instância	de	negociação
-        return new	Negociacao(
+        return new Negociacao(
             DateConverter.paraData(this._inputData.value),
             parseInt(this._inputQuantidade.value),
             parseFloat(this._inputValor.value)
-        );								
+        );
     }
-};
+}

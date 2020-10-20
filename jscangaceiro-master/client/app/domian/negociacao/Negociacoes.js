@@ -1,16 +1,25 @@
 class Negociacoes {
-    constructor (){
+
+    constructor() {
+
         this._negociacoes = [];
-    };
+    }
 
-    // create method adiciona
-    adiciona(negociacao){
+    adiciona(negociacao) {
+
         this._negociacoes.push(negociacao);
-    };
+    }
 
-    // create method to when called return array to class.
-    paraArray(){
-        return this._negociacoes;
-    };
-};
+    paraArray() {
 
+        return [].concat(this._negociacoes);
+    }
+
+
+    get volumeTotal() {
+
+        return this._negociacoes
+            .reduce((total, negociacao) =>
+                total + negociacao.volume, 0);
+    }
+}
