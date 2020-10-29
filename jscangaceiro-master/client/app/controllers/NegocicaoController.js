@@ -3,19 +3,31 @@ class NegociacaoController {
 
     constructor() {
 
-        let $ = document.querySelector.bind(document);
+        const $ = document.querySelector.bind(document);
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
-        this._negociacoes = new Negociacoes();
-        this._negociacoesView = new NegociacoesView('#negociacoes');
-        // recebe inicialmente, o modelo que encapsula uma lista vazia
-        this._negociacoesView.update(this._negociacoes);
-        this._mensagem = new Mensagem();
+        /*  Isto
+        ocorre	porque	a	arrow	function	não	é	apenas	uma	maneira	sucinta
+        de	 escrevermos	 uma	 função,	 ela	 também	 tem	 uma	 característica
+        peculiar:	 o	 escopo	 de	 seu	 	this		 é	 léxico	 (estático)	 em	 vez	 de
+        dinâmico. */
 
-        // new add.
+        //	código	comentado
+        /*
+        this._negociacoes	=	new	Negociacoes(model	=>	{
+                        console.log(this);
+                        this._negociacoesView.update(model);
+        });
+        */
+
+        this._negociacoesView = new NegociacoesView('#negociacoes');
+        this._negociacoesView.update(this._negociacoes);
+
+        this._mensagem = new Mensagem();
         this._mensagemView = new MensagemView('#mensagemView');
         this._mensagemView.update(this._mensagem);
+
     }
 
     adiciona(event) {
@@ -23,7 +35,6 @@ class NegociacaoController {
         event.preventDefault();
         this._negociacoes.adiciona(this._criaNegociacao());
         this._mensagem.texto = 'Negociação realizada com sucesso';
-        this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update(this._mensagem);
         this._limpaFormulario();
     }
@@ -43,5 +54,11 @@ class NegociacaoController {
             parseInt(this._inputQuantidade.value),
             parseFloat(this._inputValor.value)
         );
+    }
+
+    apaga() {
+        this._negociacoes.esvazia();
+        this._mensagem.texto = 'Negocições apagadas com Sucesso! ';
+        this._mensagemView.update(this._mensagem);
     }
 }

@@ -1,73 +1,93 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Negociações</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>Negociações</title>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
 
-</head>
+    </head>
 
-<body class="container">
+    <body class="container">
 
-    <h1 class="text-center">Negociações</h1>
+        <h1 class="text-center">Negociações</h1>
 
-    <div id="mensagemView"></div>
+        <div id="mensagemView"></div>
 
-    <form class="form">
+        <form class="form">
 
-        <div class="form-group">
-            <label for="data">Data</label>
-            <input type="date" id="data" class="form-control" required autofocus />
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" id="data" class="form-control" required autofocus />
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade</label>
+                <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required />
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor</label>
+                <input id="valor" type="number" class="form-control" min="0.01" step="0.01" value="0.0" required />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Incluir</button>
+        </form>
+
+        <div class="text-center">
+            <button id="botao-importa" class="btn btn-primary text-center" type="button">
+                Importar Negociações
+            </button>
+            <button id="botao-apaga" class="btn btn-primary text-center" type="button">
+                Apagar
+            </button>
+        </div>
+        <br>
+        <br>
+
+        <div id="negociacoes">
+
         </div>
 
-        <div class="form-group">
-            <label for="quantidade">Quantidade</label>
-            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required />
-        </div>
+        <script src="../client/app/domian/negociacao/Negociacao.js">
+        </script>
+        <script src="../client/app/controllers/NegocicaoController.js">
+        </script>
+        <script src="../client/app/ui/converters/DateConverter.js">
+        </script>
+        <script src="../client/app/domian/negociacao/Negociacoes.js">
+        </script>
+        <script src="app/ui/views/View.js">
+        </script>
+        <script src="app/ui/views/NegociacoesView.js">
+        </script>
+        <script src="app/ui/views/MensagemView.js">
+        </script>
+        <script src="app/ui/models/Mensagem.js">
+        </script>
+        <script src="../client/app/app.js">
+        </script>
+        <script>
+            /*  O padrão de projeto Proxy, em poucas palavras, trata - se de "um farsante".Lidamos com um Proxy como se ele fosse a instância do objeto que estamos querendo manipular A função passada	 para	 a	 propriedade get recebe	 três parâmetros	especiais.O	primeiro, target, é	uma	referência para o objeto encapsulado pelo Proxy, o	objeto	verdadeiro.O	segundo
+             parâmetro, prop, é	uma	string	com	o	nome	da	propriedade	que
+             está sendo acessada.Por	fim, receiver é	uma referência para	o próprio Proxy. */
 
-        <div class="form-group">
-            <label for="valor">Valor</label>
-            <input id="valor" type="number" class="form-control" min="0.01" step="0.01" value="0.0" required />
-        </div>
+            const negociacao = new Proxy(new Negociacao(new Date(), 2, 100
+            ), {
 
-        <button class="btn btn-primary" type="submit">Incluir</button>
-    </form>
+                //  get: function ()..{};
+                // Simplificar código ECMASCRIPT (ES06) AQUI! não é	mais get: function(...)	{} 
+                get(target, prop, receiver) {
+                    console.log(`a propiedade ${prop} caiu na armadilha`);
+                }
+            });
 
-    <div class="text-center">
-        <button id="botao-importa" class="btn btn-primary text-center" type="button">
-            Importar Negociações
-        </button>
-        <button id="botao-apaga" class="btn btn-primary text-center" type="button">
-            Apagar
-        </button>
-    </div>
-    <br>
-    <br>
+            console.log(negociacao.quantidade);
+            console.log(negociacao.valor);
 
-    <div id="negociacoes">
-
-    </div>
-
-    <script src="../client/app/domian/negociacao/Negociacao.js">
-    </script>
-    <script src="../client/app/controllers/NegocicaoController.js">
-    </script>
-    <script src="../client/app/ui/converters/DateConverter.js">
-    </script>
-    <script src="../client/app/domian/negociacao/Negociacoes.js">
-    </script>
-    <script src="app/ui/views/View.js">
-    </script>
-    <script src="app/ui/views/NegociacoesView.js">
-    </script>
-    <script src="app/ui/views/MensagemView.js">
-    </script>
-    <script src="app/ui/models/Mensagem.js">
-    </script>
-    <script src="../client/app/app.js">
-    </script>
-</body>
+        </script>
+        pag 215.
+    </body>
 
 </html>
